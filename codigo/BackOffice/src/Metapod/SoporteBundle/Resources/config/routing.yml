@@ -1,0 +1,21 @@
+MetapodSoporteBundle_admin_javier_soporte_bundle_Perfil:
+    resource: "@MetapodSoporteBundle/Controller/Perfil/"
+    type:     admingenerator
+    prefix:   /admin/perfil/
+    
+menu_perfil:
+    path: /admin/perfil/menus/{pk}/
+    defaults: {_controller: "MetapodSoporteBundle:Perfil:menu"}
+
+MetapodSoporteBundle_admin_javier_soporte_bundle_Usuario:
+    resource: "@MetapodSoporteBundle/Controller/Usuario/"
+    type:     admingenerator
+    prefix:   /admin/usuario/
+    
+editar_perfiles_usuario:
+    path: /admin/usuario/perfil/
+    defaults: { _controller: MetapodSoporteBundle:Usuario:editarPerfil }
+    
+usuario_perfil:
+    path: /usuario/perfil/
+    defaults: {_controller: MetapodSoporteBundle:Usuario:perfil}

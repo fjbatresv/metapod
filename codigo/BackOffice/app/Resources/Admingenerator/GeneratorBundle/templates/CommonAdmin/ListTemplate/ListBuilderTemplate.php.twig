@@ -1,0 +1,40 @@
+{% use '../CommonAdmin/ListTemplate/scopes.php.twig' %}
+{% use '../CommonAdmin/stylesheets.php.twig' %}
+{% use '../CommonAdmin/javascripts.php.twig' %}
+{% use '../CommonAdmin/title.php.twig' %}
+
+{{ echo_extends( builder.getBaseAdminTemplate ) }}
+
+{{ echo_block("stylesheets") }}
+{{- block('complementary_stylesheets') -}}
+{{ echo_endblock() }}
+
+{{ echo_block("javascripts") }}
+{{- block('complementary_javascripts') -}}
+{{ echo_endblock() }}
+
+{{- block('site_title') -}}
+
+{{ echo_block("body") }}
+<div class="nav-tabs-custom">
+                <ul class="nav nav-tabs pull-right">
+                    <li><a href="#tab_2-2" data-toggle="tab">Filtrar</a></li>             
+                  <li class="active"><a href="#tab_1-1" data-toggle="tab">Listado</a></li>     
+                  <li class="pull-left header"><i class="fa fa-th"></i> {{- block('title') -}}</li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1-1">
+                      {{- block('list_scopes') -}}
+
+                    {{ echo_include(builder.namespacePrefixForTemplate ~ bundle_name ~ ':' ~ builder.BaseGeneratorName ~ 'List:results.html.twig') }}
+                  </div><!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_2-2">
+                      {{ echo_block("filters") }}
+                    {% if builder.filterColumns|length > 0 %}
+                            {{ echo_include(builder.namespacePrefixForTemplate ~ bundle_name ~ ':' ~ builder.BaseGeneratorName ~ 'List:filters.html.twig') }}
+                    {% endif %}
+                    {{ echo_endblock() }}
+                  </div><!-- /.tab-pane -->
+                </div><!-- /.tab-content -->
+              </div><!-- nav-tabs-custom -->
+{{ echo_endblock() }}

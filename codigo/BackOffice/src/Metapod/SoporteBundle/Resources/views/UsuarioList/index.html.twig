@@ -1,0 +1,12 @@
+{% extends_admingenerated "MetapodSoporteBundle:UsuarioList:index.html.twig" %}
+{% block extraScripts %}
+    <script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+    <script src="{{ asset('assets/js/select2/select2.min.js') }}" id="script-resource-8"></script>
+    <script src="{{ asset('assets/js/bootstrap-switch.min.js') }}" id="script-resource-8"></script>
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}" id="script-resource-8"></script>
+{% endblock %}
+{% block extraCSS %}
+    <link rel="stylesheet" href="{{asset('js/datepicker.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/js/select2/select2-bootstrap.css') }}" id="style-resource-1">
+    <link rel="stylesheet" href="{{ asset('assets/js/select2/select2.css') }}" id="style-resource-2">
+{%  endblock%}

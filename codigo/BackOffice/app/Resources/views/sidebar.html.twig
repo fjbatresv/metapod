@@ -1,0 +1,23 @@
+    {%for menu in menus%}
+            {% if menu.ruta != '#'  and menu.superior == 0%}
+    <li> 
+        <a href="{{path(menu.ruta)}}">{%if menu.icono %}<i class="{{menu.icono}}"></i>{%endif%}
+            <span style="">{{menu.nombre}}</span>
+        </a>
+    </li>
+            {% elseif  menu.superior == 0 %}
+    <li class="treeview">
+        <a href="{{menu.ruta}}">{%if menu.icono %}<i class="{{menu.icono}}"></i>{%endif%}
+            <span style="">{{menu.nombre}}</span>
+        </a>
+        <ul class="treeview-menu">
+                {% for submenu in menus %}
+                    {% if submenu.superior == menu.id %}
+            <li><a href="{{ path(submenu.ruta) }}">{% if submenu.icono %}<i class="{{ submenu.icono }}"></i> {% endif %}{{ submenu.nombre }}</a>
+            </li>
+                    {% endif %}
+                {% endfor %}        
+        </ul>
+    </li>
+            {% endif %}
+    {%endfor%}

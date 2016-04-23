@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="default" namespace="Metapod\SoporteBundle\Model" defaultIdMethod="native">
+    <table name="estado_usuario">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="nombre" type="varchar" size="20" required="true" primaryString="true" />
+        <unique>
+            <unique-column name="nombre" />
+        </unique>
+    </table>
+    <table name="usuario">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="nombre" type="varchar" size="45" required="true"  />
+        <column name="email" type="varchar" size="100" required="true"  />
+        <column name="salt" type="varchar" size="255" />
+        <column name="apellido" type="varchar" size="45" required="false"  />
+        <column name="username" type="varchar" size="45" required="true" primaryString="true"/>
+        <column name="password" type="varchar" size="45" required="true"/>
+        <column name="direccion" type="varchar" size="100" required="false"/>
+        <column name="fecha_nacimiento" type="timestamp" required="false"/>
+        <column name="ultimo_cambio_password" type="date" />
+        <column name="estado_usuario_id" type="integer" required="true" />
+        <column name="record_password" type="longvarchar" required="false" /> 
+        <column name="avatar" type="longvarchar" required="false" />    
+        <column name="conectado" type="boolean" required="true" default="false" />
+        <column name="ultima_ip" type="varchar" required ="false" size="20" />
+        <column name="empresa_id" type="integer" required="false" />
+        <column name="created_by" type="varchar" size="50" required="false" />
+        <column name="updated_by" type="varchar" size="50" required="false" />
+        <column name="created_at" type="timestamp" required="false" />
+        <column name="updated_at" type="timestamp" required="false" />
+        <behavior name="timestampable" />
+        <foreign-key foreignTable="estado_usuario">
+            <reference local="estado_usuario_id" foreign="id" />
+        </foreign-key>
+        <unique>
+            <unique-column name="username" />
+        </unique>
+    </table>
+    <table name="bitacora">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="descripcion" type="longvarchar" required="true"  />
+        <column name="direccion" type="varchar" size="15" required="true"  />
+        <column name="fecha_hora" type="timestamp" required="true"  />
+        <column name="usuario_id" type="integer" required="false"/>
+        <column name="tabla" type="varchar" size="100" required="false" />
+        <column name="dato_tabla" type="integer" required="false" />
+        <column name="error" type="varchar" size="255" required="false" />
+        <column name="dato_error" type="varchar" size="255" required="false" />
+        <column name="estado" type="integer" required="true"/>
+        <column name="created_by" type="varchar" size="50" required="false" />
+        <column name="updated_by" type="varchar" size="50" required="false" />
+        <column name="created_at" type="timestamp" required="false" />
+        <column name="updated_at" type="timestamp" required="false" />
+        <behavior name="timestampable" />
+        <foreign-key foreignTable="usuario">
+            <reference local="usuario_id" foreign="id" />
+        </foreign-key>
+    </table>
+    <table name="menu">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="nombre" type="varchar" size="100" required="true" primaryString="true"/>
+        <column name="ruta" type="varchar" size="100" required="true"/>
+        <column name="superior" type="integer" required="true"/>
+        <column name="mostrar" type="integer" size="1" required="true"/>
+        <column name="icono" type="varchar" size="100" required="false" />
+        <column name="created_by" type="varchar" size="50" required="false" />
+        <column name="updated_by" type="varchar" size="50" required="false" />
+        <column name="created_at" type="timestamp" required="false" />
+        <column name="updated_at" type="timestamp" required="false" />
+        <behavior name="timestampable" />
+    </table>
+    <table name="perfil_menu">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="perfil_id" type="integer" required="true"/>
+        <column name="menu_id" type="integer" required="true" />
+        <column name="created_by" type="varchar" size="50" required="false" />
+        <column name="updated_by" type="varchar" size="50" required="false" />
+        <column name="created_at" type="timestamp" required="false" />
+        <column name="updated_at" type="timestamp" required="false" />
+        <behavior name="timestampable" />
+        <foreign-key onDelete="cascade" foreignTable="perfil">
+            <reference local="perfil_id" foreign="id" />
+        </foreign-key>
+        <foreign-key onDelete="cascade" foreignTable="menu">
+            <reference local="menu_id" foreign="id" />
+        </foreign-key>
+    </table>
+    <table name="perfil">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="nombre" type="varchar" size="45" required="true" primaryString="true" />
+        <column name="descripcion" type="varchar" size="100" required="false"/>
+        <column name="created_by" type="varchar" size="50" required="false" />
+        <column name="updated_by" type="varchar" size="50" required="false" />
+        <column name="created_at" type="timestamp" required="false" />
+        <column name="updated_at" type="timestamp" required="false" />
+        <behavior name="timestampable" />
+        <unique>
+            <unique-column name="nombre" />
+        </unique>
+    </table>
+    <table name="usuario_perfil">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="perfil_id" type="integer" required="true" />
+        <column name="usuario_id" type="integer" required="true"  />
+        <foreign-key onDelete="cascade" onUpdate="cascade" foreignTable="usuario">
+            <reference local="usuario_id" foreign="id" />
+        </foreign-key>
+        <foreign-key foreignTable="perfil">
+            <reference local="perfil_id" foreign="id" />
+        </foreign-key>
+    </table>
+</database>

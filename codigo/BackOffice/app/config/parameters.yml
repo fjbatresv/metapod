@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: metapod
+    database_user: root
+    database_password: null
+    mailer_transport: gmail
+    mailer_host: ~
+    mailer_user: fjbatresv@gmail.com
+    mailer_password: fjbv1234
+    secret: 5baa7e42452d8e913d2db19d6141807dd2516a7a

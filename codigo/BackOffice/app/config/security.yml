@@ -1,0 +1,40 @@
+security:
+    firewalls:
+        frontend:
+            pattern: ^/*
+            anonymous: ~
+            form_login:
+                login_path: usuario_login
+#                check_path: usuario_login
+#                default_target_path: usuario_logued
+#                use_referer: false
+#                always_use_default_target_path: true
+#                failure_path: usuario_login_fail
+            logout:
+                path: usuario_logout
+                target: usuario_login
+            security: true
+            remember_me:
+                key:  gea2015  
+                lifetime: 3600
+                path:  usuario_logout
+    access_control:
+        - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cambio_password/* , roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/recuperacion/* , roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_wdt/* , roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/_profiler/* , roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/* , roles: ROLE_USUARIO }
+        
+#    providers:
+#        usuarios:
+#            entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property: email }
+    providers:
+        main:
+            propel:
+                class: Metapod\SoporteBundle\Model\Usuario
+                property: username
+                
+    encoders:
+        Metapod\SoporteBundle\Model\Usuario:
+          algorithm: plaintext

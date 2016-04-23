@@ -1,0 +1,73 @@
+{%extends '::base.html.twig' %}
+{% block extraScripts %}
+    <script src="{{asset('/plugins/jstree/js/jstree.min.js')}}"></script>
+    <script type="text/javascript">
+        
+    </script>
+{% endblock %}
+{% block extraCSS %}
+    <link rel="stylesheet" href="{{asset('/plugins/jstree/css/style.min.css')}}"/> 
+{%  endblock%}
+{%block body%}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Editar menús del perfil "{{ perfil.nombre }}"</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form id="form" class="form-horizontal" role="form" method="POST" action="{{ path ('menu_perfil', {pk : perfil.id})}}" {{ form_enctype(form) }}>
+            <div class="box-body">
+                {% set contador = 0 %}
+                {%for menu in menus%}
+                    {%if menu.superior == 0%}
+                        {% if contador == 0 %}
+                            <div class="row">
+                            {% endif %}
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-md-1"></label>
+                                    <div class="col-md-11">
+                                        <div class="lista demo">
+                                            <ul>
+                                                <li data-jstree='{ "opened" : true }' >{{form_widget(form.Menu[menu.id], {'attr' : { 'class'  : ''} })}}&nbsp;{{form_label(form.Menu[menu.id])}}
+                                                    <ul>
+                                                        {%for menuInferior in menus%}
+                                                            {%if menuInferior.superior == menu.id%}
+                                                                <li>{{form_widget(form.Menu[menuInferior.id])}}&nbsp;{{form_label(form.Menu[menuInferior.id])}}
+                                                                {%endif%}
+                                                            {%endfor%}
+                                                    </ul>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% set contador = contador+ 1 %}
+                            {% if contador == 3 %}
+                            </div>
+                            <br />
+                            {% set contador = 0 %}
+                        {% endif %}
+                    {%endif%}
+                {%endfor%}
+                {% if contador != 0%}
+                </div>
+            {% endif %}
+            {{form_widget(form.Menu)}}
+            {{ form_rest(form) }}
+    </div><!-- /.box-body -->
+
+    <div class="box-footer">
+        <div class="col-md-offset-3 col-md-9">
+            <input type="submit" style="visibility: collapse"/>
+            <a class="btn btn-success" href="javascript:{}" onclick="form.submit();
+                    return true;"class="btn green">
+                <i class="fa fa-save"></i> Editar
+            </a>
+            <a class="btn btn-danger" href="{{ path('Metapod_SoporteBundle_Perfil_list') }}" class="btn red">
+                <i class="fa fa-undo"></i> Regresar
+            </a>
+        </div>
+    </div>
+</form>
+</div><!-- /.box -->
+{%endblock%}

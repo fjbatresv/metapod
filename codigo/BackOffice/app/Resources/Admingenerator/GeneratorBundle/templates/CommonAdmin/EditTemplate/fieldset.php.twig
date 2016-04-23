@@ -1,0 +1,35 @@
+{% block form_fieldset %}
+    {{ echo_block("form_fieldset_" ~ fieldset|classify|replace({'.': '_'})) }}
+    <div class="box-body">
+        {% if "NONE" != fieldset[:4] %}
+        <h3 class="form-section">{{ echo_trans(fieldset,{}, i18n_catalog|default("Admin") ) }}</h3>
+        {% endif %}
+            {% for rows in builder.fieldsets[fieldset] %}
+                <div class="row">
+                    {% for field in rows %}
+                        {% if builder.Columns[field].credentials %}
+                            {{ echo_if_granted(builder.Columns[field].credentials, builder.ModelClass) }}
+                        {% endif %}
+                        {% set medida = 12/rows | length %}
+
+                        <div class="col-md-{{ medida }} form_field field_{{ builder.Columns[field].formType }} field_{{ field }}">
+                            <div class="form-group">
+                                {{ echo_twig("form_label(form['" ~ field ~ "'], '" ~ builder.Columns[field].label|addslashes ~ "'|trans({}, '" ~ i18n_catalog|default("Admin") ~ "'), {'label_attr':{'class': 'control-label col-md-3'}})") }}
+                                <div class="col-md-9" >
+                                    {{ echo_twig("form_widget(form['" ~ field ~ "'], {'attr':{'placeholder' : '" ~ field ~ "'}})") }}
+                                    <div class="help-block">
+                                    {{ builder.columns[field].help }}
+                                        <div class="has-error">{{ echo_twig("form_errors(form['" ~ field ~ "'])") }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if builder.Columns[field].credentials %}
+                            {{ echo_endif () }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        {{ echo_endblock() }}
+        {% endblock %}

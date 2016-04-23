@@ -1,0 +1,17 @@
+{% extends_admingenerated "MetapodSoporteBundle:UsuarioEdit:index.html.twig" %}
+{% block extraScripts %}
+    <script src="{{asset('/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('/plugins/datepicker/locales/bootstrap-datepicker.es.js')}}"></script>
+    <script>
+        $(function () {
+            $('.datepicker').datepicker({
+                format: "yyyy-mm-dd",
+                language: "es",
+                autoclose: true
+            });
+        });
+    </script>
+{% endblock %}
+{% block extraCSS %}
+    <link rel="stylesheet" href="{{asset('/plugins/datepicker/datepicker3.css')}}">
+{%  endblock%}

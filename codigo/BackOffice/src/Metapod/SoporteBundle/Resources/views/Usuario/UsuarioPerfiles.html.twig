@@ -1,0 +1,45 @@
+{% extends '::base.html.twig' %}
+{% block extraScripts %}
+    <script src="{{ asset('/plugins/select2/select2.min.js') }}" id="script-resource-8"></script>
+    <script>
+        $(function(){
+            $(".select2").select2();
+        });
+    </script>
+{% endblock %}
+{% block extraCSS %}
+    <link rel="stylesheet" href="{{ asset('/plugins/select2/select2.min.css') }}" id="style-resource-2">
+{%  endblock%}
+{% block body %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Perfiles del usuario "{{ nombre }}"</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form id="form" class="form-horizontal" method="POST" action="{{ path('editar_perfiles_usuario', { pk : pk}) }}" novalidate="">
+            <div class="box-body">
+                <center><font color="red" size="5">{{ error }}</font></center></br>
+                <div class="form-group">
+                    {{ form_label(form.Perfiles, '', { 'label_attr' : { 'class' : 'col-md-3' } } ) }}
+                    <div class="col-md-4">
+                        {{form_widget(form.Perfiles)}}
+                    </div>
+                </div>
+                {{form_rest(form)}}
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+                <div class="col-md-offset-3 col-md-9">
+                    <input type="submit" style="visibility: collapse"/>
+                    <a class="btn btn-success" href="javascript:{}" onclick="form.submit();
+                            return true;"class="btn green">
+                        <i class="fa fa-save"></i> Editar
+                    </a>
+                    <a class="btn btn-danger" href="{{ path('Metapod_SoporteBundle_Usuario_list') }}" class="btn red">
+                        <i class="fa fa-undo"></i> Regresar
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div><!-- /.box -->
+{% endblock %}

@@ -1,0 +1,59 @@
+generator: admingenerator.generator.propel
+params:
+    model: Metapod\SoporteBundle\Model\Perfil
+    namespace_prefix: Metapod
+    concurrency_lock: ~
+    bundle_name: SoporteBundle
+    pk_requirement: ~
+    fields: ~
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: Perfiles de usuario
+            display: [nombre]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                menus:
+                    route: menu_perfil
+                    icon: fa fa-bars
+                delete: ~
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    filters:
+        params:
+            display: [nombre]
+    new:
+        params:
+            title: Nuevo perfil
+            display: [nombre, descripcion]
+            actions:
+                save-and-list: ~
+                list: ~
+    edit:
+        params:
+            title: "Editando el perfil \"%object%\"|{ %object%: Perfil.nombre }|"
+            display: [nombre, descripcion]
+            actions:
+                save-and-list: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Perfil.title }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~

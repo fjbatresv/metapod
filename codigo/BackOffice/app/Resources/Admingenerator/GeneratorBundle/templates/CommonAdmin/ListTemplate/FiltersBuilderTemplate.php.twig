@@ -1,0 +1,34 @@
+{% block list_filters %}
+    {{ echo_block('list_filters') }}
+    <form class="form-horizontal" action="{{ echo_path(builder.routePrefixWithSubfolder ~ '_' ~ bundle_name ~ ( builder.BaseGeneratorName ? "_" ~ builder.BaseGeneratorName : "" ) ~ "_filters" ) }}" method="post" {{ echo_twig("form_enctype(form)") }} role="form">
+        <div class='box-body'>
+            <legend>Filtrar</legend>
+        {{ echo_twig("form_errors(form)") }}
+            {% for field in builder.filterColumns %}
+                {% if builder   .filterColumns[field.name].credentials %}
+                    {{ echo_if_granted(builder.filterColumns[field.name].credentials) }}
+                {% endif %}
+                <div class="form-group">
+                    {{ echo_twig("form_label(form['" ~ field.name ~ "'], '" ~ builder.FilterColumns[field.name].label|addslashes ~ "'|trans({}, '" ~ i18n_catalog|default("Admin") ~ "'), {'label_attr':{'class': 'control-label col-sm-2'}})") }}
+                    <div class="col-sm-10" >
+                        {{ echo_twig("form_widget(form['" ~ field.name ~ "'], {'attr':{'placeholder' : '" ~ field.name ~ "'}})") }}
+                        <div class="help-block">
+                            {{ echo_twig("form_errors(form['" ~ field.name ~ "'])") }}
+                        </div>
+                    </div>
+                </div>
+                {% if builder.filterColumns[field.name].credentials %}
+                    {{ echo_endif () }}
+                {% endif %}
+            {% endfor %}
+            {{ echo_twig("form_rest(form)") }}
+        </div>
+        <div class="box-footer">
+            <div class="col-md-offset-3 col-md-9">
+                <button type="submit" class="btn btn-small btn-primary"><i class="fa fa-search"></i> Filtrar</button>
+                <button type="submit" class="btn btn-small" name="reset" value="true"><i class="fa fa-refresh"></i> Reajustar</button>
+            </div>
+        </div>
+    </form>
+    {{ echo_endblock() }}
+{% endblock list_filters %}

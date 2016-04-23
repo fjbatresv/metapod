@@ -1,0 +1,20 @@
+gea_soporte:
+    resource: "@MetapodSoporteBundle/Resources/config/routing.yml"
+    prefix:   /soporte/
+    
+pagina_inicio:
+    path:    /
+    defaults: { _controller: MetapodSoporteBundle:Default:portada }
+_pagina_inicio:
+    path:    /inicio/
+    defaults: { _controller: MetapodSoporteBundle:Default:portada }
+    
+#Autenticacion y salida
+usuario_logout:
+    path: /usuario/logout/
+usuario_login:
+    path: /usuario/login
+    defaults: { _controller: MetapodSoporteBundle:Login:login }
+usuario_pre_logout:
+    path: /usuario/pre/logout/
+    defaults: { _controller: MetapodSoporteBundle:Login:preLogout }

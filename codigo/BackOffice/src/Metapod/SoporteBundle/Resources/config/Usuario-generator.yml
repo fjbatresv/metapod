@@ -1,0 +1,68 @@
+generator: admingenerator.generator.propel
+params:
+    model: Metapod\SoporteBundle\Model\Usuario
+    namespace_prefix: Metapod
+    concurrency_lock: ~
+    bundle_name: SoporteBundle
+    pk_requirement: ~
+    fields:
+        fecha_nacimiento:
+            formType: text
+            addFormOptions:
+                read_only: true
+                attr:
+                    class: "datepicker"
+                    data-format: "yyyy-mm-dd"
+        EstadoUsuario:
+            label: Estado
+    object_actions:
+        delete: ~
+    batch_actions:
+        delete: ~
+builders:
+    list:
+        params:
+            title: Usarios
+            display: [username, email]
+            actions:
+                new: ~
+            object_actions:
+                edit: ~
+                perfiles:
+                    route: editar_perfiles_usuario
+                    icon: fa fa-sitemap
+                delete: ~
+    excel:
+        params: ~
+        filename: ~
+        filetype: ~
+    filters:
+        params:
+            display: [nombre, apellido, username, email, direccion, EstadoUsuario]
+    new:
+        params:
+            title: Nuevo usuario
+            display: [nombre, apellido, username, email, direccion, fecha_nacimiento, EstadoUsuario]
+            actions:
+                save-and-list: ~
+                list: ~
+    edit:
+        params:
+            title: "Editando el usuario \"%object%\"|{ %object%: Usuario.username }|"
+            display: [nombre, apellido, username, email, direccion, fecha_nacimiento, EstadoUsuario]
+            actions:
+                save-and-list: ~
+                list: ~
+    show:
+        params:
+            title: "You're viewing the object \"%object%\"|{ %object%: Usuario.username }|"
+            display: ~
+            actions:
+                list: ~
+                new: ~
+    actions:
+        params:
+            object_actions:
+                delete: ~
+            batch_actions:
+                delete: ~
